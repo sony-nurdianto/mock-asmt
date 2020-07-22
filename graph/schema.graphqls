@@ -1,0 +1,35 @@
+type User{
+  id: ID!
+  name: String!
+  email: String!
+  Phone: Int!
+  password: String!
+  Product: [Product]!
+}
+
+type Product{
+  id: ID!
+  name: String!
+  description: String!
+  price: Int!
+  User: User!
+}
+
+input NewProduct{
+  name: String!
+  description: String!
+  price: Int!
+  
+}
+
+type Query{
+  user(id: ID!) : User!
+  product(id: ID!) : Product!
+  
+}
+
+type Mutation{
+  createProduct(input: NewProduct): Product!
+  updateProduct(id: ID!, input: NewProduct):Product!
+   
+}
