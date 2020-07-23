@@ -2,25 +2,20 @@
 
 package model
 
-type NewProduct struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Price       int    `json:"price"`
-}
-
-type Product struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Price       int    `json:"price"`
-	User        *User  `json:"User"`
+type NewVideo struct {
+	Title  string `json:"title"`
+	URL    string `json:"url"`
+	UserID string `json:"userId"`
 }
 
 type User struct {
-	ID       string     `json:"id"`
-	Name     string     `json:"name"`
-	Email    string     `json:"email"`
-	Phone    int        `json:"Phone"`
-	Password string     `json:"password"`
-	Product  []*Product `json:"Product"`
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type Video struct {
+	ID     string `json:"id"`
+	Title  string `json:"title"`
+	URL    string `json:"url"`
+	Author *User  `json:"author"`
 }

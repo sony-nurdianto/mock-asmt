@@ -5,26 +5,30 @@ package graph
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
+	"math/big"
 
 	"github.com/sony-nurdianto/mock-asmt/graph/generated"
 	"github.com/sony-nurdianto/mock-asmt/graph/model"
 )
 
-func (r *mutationResolver) CreateProduct(ctx context.Context, input *model.NewProduct) (*model.Product, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo) (*model.Video, error) {
+	nBig, _ := rand.Int(rand.Reader, big.NewInt(27))
+	video := &model.Video{
+
+		ID:     fmt.Sprintf("T%d", nBig),
+		Title:  input.Title,
+		URL:    input.URL,
+		Author: &model.User{ID: input.UserID, Name: "user" + input.UserID},
+	}
+
+	r.videos = append(r.videos, video)
+	return video, nil
 }
 
-func (r *mutationResolver) UpdateProduct(ctx context.Context, id string, input *model.NewProduct) (*model.Product, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *queryResolver) Product(ctx context.Context, id string) (*model.Product, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *queryResolver) Videos(ctx context.Context) ([]*model.Video, error) {
+	return r.videos, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
